@@ -106,7 +106,7 @@ Before running the project, ensure you have:
 
 2. **MySQL Server 8.0 or higher**
    - MySQL should be running on `localhost:3306`
-   - Default credentials: `root` / `ashish123` (update in code if different)
+   - Default credentials: `root` / `your_password` (update in code if different)
 
 3. **MySQL Connector/J JAR file**
    - Already included in `lib/` folder
@@ -120,7 +120,7 @@ Before running the project, ensure you have:
 Run the schema file to create a new database with sample data:
 
 ```powershell
-mysql -u root -pashish123 < sql/schema.sql
+mysql -u root -<your_password> < sql/schema.sql
 ```
 
 Or in MySQL Workbench/MySQL Shell:
@@ -133,12 +133,12 @@ SOURCE path/to/hospital-management/sql/schema.sql;
 If you already have the old database schema, run the migration queries:
 
 ```powershell
-mysql -u root -pashish123 hospital < sql/schema_migration.sql
+mysql -u root -<your_password> hospital < sql/schema_migration.sql
 ```
 
 Or use the text file with plain SQL queries:
 ```powershell
-mysql -u root -pashish123 hospital < sql/schema_update_queries.txt
+mysql -u root -<your_password> hospital < sql/schema_update_queries.txt
 ```
 
 ### Database Credentials
@@ -149,7 +149,7 @@ If you need to change the database credentials, edit this file:
   ```java
   private static final String URL = "jdbc:mysql://localhost:3306/hospital";
   private static final String USERNAME = "root";
-  private static final String PASSWORD = "ashish123";
+  private static final String PASSWORD = <your_password>";
   ```
 
 ---
@@ -360,14 +360,14 @@ java.sql.SQLException: Unknown database 'hospital'
 
 **Solution**: Run the schema file to create the database:
 ```powershell
-mysql -u root -pashish123 < sql/schema.sql
+mysql -u root -<your_password> < sql/schema.sql
 ```
 
 #### 4. "Column not found" errors
 
 **Solution**: Your database schema is outdated. Run migration:
 ```powershell
-mysql -u root -pashish123 hospital < sql/schema_migration.sql
+mysql -u root -<your_password> hospital < sql/schema_migration.sql
 ```
 
 #### 5. Compilation errors
