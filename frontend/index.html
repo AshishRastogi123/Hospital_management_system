@@ -224,25 +224,21 @@
                         <form>
                             <div class="form-group">
                                 <label>Select Patient</label>
-                                <select class="form-control">
-                                    <option>Select...</option>
-                                    <option>John Doe</option>
-                                    <option>Jane Smith</option>
+                                <select id="appointment-patient-select" class="form-control">
+                                    <option value="">Select...</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Select Doctor</label>
-                                <select class="form-control">
-                                    <option>Select...</option>
-                                    <option>Dr. Robert Wilson (Cardiology)</option>
-                                    <option>Dr. Emily Chen (Neurology)</option>
+                                <select id="appointment-doctor-select" class="form-control">
+                                    <option value="">Select...</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Date & Time</label>
-                                <input type="datetime-local" class="form-control">
+                                <input type="datetime-local" id="appointment-datetime" class="form-control">
                             </div>
-                            <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center;">Book Now</button>
+                            <button type="button" id="book-appointment-btn" class="btn btn-primary" style="width: 100%; justify-content: center;">Book Now</button>
                         </form>
                     </div>
                     
@@ -256,21 +252,11 @@
                                         <th>Doctor</th>
                                         <th>Date & Time</th>
                                         <th>Status</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>John Doe</td>
-                                        <td>Dr. Robert Wilson</td>
-                                        <td>May 10, 2026 - 10:30 AM</td>
-                                        <td><span class="badge badge-success">Confirmed</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jane Smith</td>
-                                        <td>Dr. Emily Chen</td>
-                                        <td>May 11, 2026 - 02:00 PM</td>
-                                        <td><span class="badge badge-warning">Pending</span></td>
-                                    </tr>
+                                    <!-- populated by js -->
                                 </tbody>
                             </table>
                         </div>
@@ -449,11 +435,11 @@
                 <button class="close-modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="addPatientForm">
                     <div class="form-row">
                         <div class="form-group">
                             <label>First Name</label>
-                            <input type="text" class="form-control" placeholder="Enter first name">
+                            <input type="text" id="patientName" class="form-control" placeholder="Enter first name" required>
                         </div>
                         <div class="form-group">
                             <label>Last Name</label>
@@ -463,11 +449,11 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Age</label>
-                            <input type="number" class="form-control" placeholder="Enter age">
+                            <input type="number" id="patientAge" class="form-control" placeholder="Enter age" required>
                         </div>
                         <div class="form-group">
                             <label>Gender</label>
-                            <select class="form-control">
+                            <select id="patientGender" class="form-control">
                                 <option>Male</option>
                                 <option>Female</option>
                                 <option>Other</option>
@@ -477,7 +463,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Contact Number</label>
-                            <input type="tel" class="form-control" placeholder="Enter phone number">
+                            <input type="tel" id="patientPhone" class="form-control" placeholder="Enter phone number">
                         </div>
                         <div class="form-group">
                             <label>Disease/Symptom</label>
@@ -488,11 +474,12 @@
                         <label>Address</label>
                         <textarea class="form-control" rows="3" placeholder="Enter full address"></textarea>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline btn-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Patient</button>
+                </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline btn-cancel">Cancel</button>
-                <button class="btn btn-primary">Save Patient</button>
             </div>
         </div>
     </div>
@@ -505,15 +492,15 @@
                 <button class="close-modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="addDoctorForm">
                     <div class="form-row">
                         <div class="form-group">
                             <label>Full Name</label>
-                            <input type="text" class="form-control" placeholder="Enter doctor's name">
+                            <input type="text" id="doctorName" class="form-control" placeholder="Enter doctor's name" required>
                         </div>
                         <div class="form-group">
                             <label>Specialization</label>
-                            <select class="form-control">
+                            <select id="doctorSpecialty" class="form-control">
                                 <option>Cardiology</option>
                                 <option>Neurology</option>
                                 <option>Orthopedics</option>
@@ -525,22 +512,23 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Contact Number</label>
-                            <input type="tel" class="form-control" placeholder="Enter phone number">
+                            <input type="tel" id="doctorPhone" class="form-control" placeholder="Enter phone number">
                         </div>
                         <div class="form-group">
                             <label>Email Address</label>
-                            <input type="email" class="form-control" placeholder="Enter email">
+                            <input type="email" id="doctorEmail" class="form-control" placeholder="Enter email">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Schedule/Availability</label>
                         <input type="text" class="form-control" placeholder="E.g., Mon-Fri, 9AM-5PM">
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline btn-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Doctor</button>
+                </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline btn-cancel">Cancel</button>
-                <button class="btn btn-primary">Save Doctor</button>
             </div>
         </div>
     </div>
