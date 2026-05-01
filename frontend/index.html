@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Hospital Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fa-solid fa-hospital"></i>
+            <h2>MediCare</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active" data-target="dashboard-section"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+            <li><a href="#" data-target="patients-section"><i class="fa-solid fa-bed-pulse"></i> Patients</a></li>
+            <li><a href="#" data-target="doctors-section"><i class="fa-solid fa-user-doctor"></i> Doctors</a></li>
+            <li><a href="#" data-target="appointments-section"><i class="fa-regular fa-calendar-check"></i> Appointments</a></li>
+            <li><a href="#" data-target="billing-section"><i class="fa-solid fa-file-invoice-dollar"></i> Billing</a></li>
+            <li><a href="#" data-target="reports-section"><i class="fa-solid fa-chart-line"></i> Reports</a></li>
+            <li class="logout"><a href="login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="topbar-left">
+                <!-- Can add search here if needed -->
+            </div>
+            <div class="topbar-right">
+                <div class="profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=0b5cff&color=fff" alt="Profile">
+                    <div class="profile-info">
+                        <h4>Admin User</h4>
+                        <p>Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="section active">
+                <div class="section-header">
+                    <h2 class="section-title">Dashboard Overview</h2>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-info">
+                            <h3>1,245</h3>
+                            <p>Total Patients</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fa-solid fa-user-doctor"></i></div>
+                        <div class="stat-info">
+                            <h3>48</h3>
+                            <p>Total Doctors</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange"><i class="fa-regular fa-calendar-check"></i></div>
+                        <div class="stat-info">
+                            <h3>124</h3>
+                            <p>Today's Appointments</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple"><i class="fa-solid fa-dollar-sign"></i></div>
+                        <div class="stat-info">
+                            <h3>$15,430</h3>
+                            <p>Revenue Today</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="card">
+                        <h3 style="margin-bottom: 20px;">Patient Influx</h3>
+                        <div class="chart-container">
+                            <canvas id="patientsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 style="margin-bottom: 20px;">Revenue by Dept</h3>
+                        <div class="chart-container">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Patients Section -->
+            <section id="patients-section" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Patient Management</h2>
+                    <button class="btn btn-primary" data-modal="patient"><i class="fa-solid fa-plus"></i> Add Patient</button>
+                </div>
+                
+                <div class="card">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Patient ID</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Contact</th>
+                                    <th>Disease</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#PT-001</td>
+                                    <td>John Doe</td>
+                                    <td>45</td>
+                                    <td>Male</td>
+                                    <td>+1 234-567-8900</td>
+                                    <td><span class="badge badge-warning">Fever</span></td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="btn-icon edit"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#PT-002</td>
+                                    <td>Jane Smith</td>
+                                    <td>32</td>
+                                    <td>Female</td>
+                                    <td>+1 987-654-3210</td>
+                                    <td><span class="badge badge-primary">Migraine</span></td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="btn-icon edit"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Doctors Section -->
+            <section id="doctors-section" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Doctor Management</h2>
+                    <button class="btn btn-primary" data-modal="doctor"><i class="fa-solid fa-plus"></i> Add Doctor</button>
+                </div>
+                
+                <div class="card">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Doctor ID</th>
+                                    <th>Name</th>
+                                    <th>Specialization</th>
+                                    <th>Availability</th>
+                                    <th>Contact</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#DR-101</td>
+                                    <td>Dr. Robert Wilson</td>
+                                    <td>Cardiology</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                    <td>robert.w@medicare.com</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="btn-icon edit"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#DR-102</td>
+                                    <td>Dr. Emily Chen</td>
+                                    <td>Neurology</td>
+                                    <td><span class="badge badge-warning">On Leave</span></td>
+                                    <td>emily.c@medicare.com</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="btn-icon edit"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Appointments Section -->
+            <section id="appointments-section" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Appointments</h2>
+                </div>
+                
+                <div class="charts-grid">
+                    <div class="card" style="grid-column: span 1;">
+                        <h3 style="margin-bottom: 20px;">Book Appointment</h3>
+                        <form>
+                            <div class="form-group">
+                                <label>Select Patient</label>
+                                <select class="form-control">
+                                    <option>Select...</option>
+                                    <option>John Doe</option>
+                                    <option>Jane Smith</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Doctor</label>
+                                <select class="form-control">
+                                    <option>Select...</option>
+                                    <option>Dr. Robert Wilson (Cardiology)</option>
+                                    <option>Dr. Emily Chen (Neurology)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Date & Time</label>
+                                <input type="datetime-local" class="form-control">
+                            </div>
+                            <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center;">Book Now</button>
+                        </form>
+                    </div>
+                    
+                    <div class="card" style="grid-column: span 2;">
+                        <h3 style="margin-bottom: 20px;">Recent Appointments</h3>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Doctor</th>
+                                        <th>Date & Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>John Doe</td>
+                                        <td>Dr. Robert Wilson</td>
+                                        <td>May 10, 2026 - 10:30 AM</td>
+                                        <td><span class="badge badge-success">Confirmed</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jane Smith</td>
+                                        <td>Dr. Emily Chen</td>
+                                        <td>May 11, 2026 - 02:00 PM</td>
+                                        <td><span class="badge badge-warning">Pending</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Billing Section -->
+            <section id="billing-section" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Billing & Payments</h2>
+                </div>
+                
+                <div class="card" style="margin-bottom: 24px;">
+                    <div class="form-row" style="align-items: flex-end;">
+                        <div class="form-group" style="flex: 2;">
+                            <label>Select Patient to Generate Bill</label>
+                            <select class="form-control" id="bill-patient-select">
+                                <option value="">Select...</option>
+                                <option value="PT-001">John Doe - #PT-001</option>
+                                <option value="PT-002">Jane Smith - #PT-002</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <button class="btn btn-primary" id="generate-bill-btn" style="width: 100%; justify-content: center;">Generate Bill</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="bill-preview" style="display: none;">
+                    <div class="bill-container">
+                        <div class="bill-header">
+                            <i class="fa-solid fa-hospital" style="font-size: 32px; color: var(--primary-color); margin-bottom: 12px;"></i>
+                            <h2>MediCare Hospital</h2>
+                            <p class="text-muted">123 Health Avenue, Medical District, NY 10001</p>
+                        </div>
+                        
+                        <div class="bill-info">
+                            <div>
+                                <h4>Billed To:</h4>
+                                <p><strong>John Doe</strong></p>
+                                <p>Patient ID: #PT-001</p>
+                                <p>Phone: +1 234-567-8900</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <h4>Invoice Details:</h4>
+                                <p>Invoice No: #INV-2026051</p>
+                                <p>Date: May 01, 2026</p>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Qty</th>
+                                        <th>Unit Price</th>
+                                        <th style="text-align: right;">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>General Consultation</td>
+                                        <td>1</td>
+                                        <td>$150.00</td>
+                                        <td style="text-align: right;">$150.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Blood Test (CBC)</td>
+                                        <td>1</td>
+                                        <td>$85.00</td>
+                                        <td style="text-align: right;">$85.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pharmacy Medicines</td>
+                                        <td>1</td>
+                                        <td>$45.50</td>
+                                        <td style="text-align: right;">$45.50</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="bill-total">
+                            <div style="text-align: right;">
+                                <p style="margin-bottom: 8px;">Subtotal: $280.50</p>
+                                <p style="margin-bottom: 8px;">Tax (5%): $14.03</p>
+                                <h3>Total: $294.53</h3>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 30px; display: flex; justify-content: flex-end; gap: 12px;">
+                            <button class="btn btn-outline"><i class="fa-solid fa-envelope"></i> Email Bill</button>
+                            <button class="btn btn-primary" id="print-bill-btn"><i class="fa-solid fa-print"></i> Print</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports-section" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Reports & Analytics</h2>
+                </div>
+                
+                <div class="card" style="margin-bottom: 24px;">
+                    <p class="text-muted" style="margin-bottom: 16px;">Generate comprehensive reports for hospital operations.</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Report Type</label>
+                            <select class="form-control">
+                                <option>Financial Report</option>
+                                <option>Patient Demographics</option>
+                                <option>Doctor Performance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Date Range</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <button class="btn btn-primary">Generate Report</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="charts-grid">
+                    <div class="card">
+                        <h3 style="margin-bottom: 20px;">Monthly Revenue Trends</h3>
+                        <div class="chart-container" style="background: linear-gradient(180deg, rgba(11, 92, 255, 0.05) 0%, rgba(255,255,255,0) 100%); display:flex; align-items:flex-end; padding:20px; border-radius: 8px;">
+                            <!-- Placeholder for complex chart -->
+                            <div style="width: 100%; display: flex; align-items: flex-end; justify-content: space-between; height: 100%;">
+                                <div style="width: 12%; background: var(--primary-color); height: 40%; border-radius: 4px 4px 0 0;"></div>
+                                <div style="width: 12%; background: var(--primary-color); height: 60%; border-radius: 4px 4px 0 0;"></div>
+                                <div style="width: 12%; background: var(--primary-color); height: 45%; border-radius: 4px 4px 0 0;"></div>
+                                <div style="width: 12%; background: var(--primary-color); height: 80%; border-radius: 4px 4px 0 0;"></div>
+                                <div style="width: 12%; background: var(--primary-color); height: 65%; border-radius: 4px 4px 0 0;"></div>
+                                <div style="width: 12%; background: var(--primary-color); height: 95%; border-radius: 4px 4px 0 0;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 style="margin-bottom: 20px;">Quick Stats</h3>
+                        <ul style="list-style: none;">
+                            <li style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                                <span>Avg. Patient Wait Time</span>
+                                <strong>14 Mins</strong>
+                            </li>
+                            <li style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                                <span>Bed Occupancy Rate</span>
+                                <strong>78%</strong>
+                            </li>
+                            <li style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                                <span>Surgery Success Rate</span>
+                                <strong>99.2%</strong>
+                            </li>
+                            <li style="display: flex; justify-content: space-between; padding: 12px 0;">
+                                <span>Patient Satisfaction</span>
+                                <strong>4.8/5.0</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Add Patient Modal -->
+    <div class="modal" id="patient-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Patient</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" placeholder="Enter first name">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" placeholder="Enter last name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input type="number" class="form-control" placeholder="Enter age">
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select class="form-control">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="tel" class="form-control" placeholder="Enter phone number">
+                        </div>
+                        <div class="form-group">
+                            <label>Disease/Symptom</label>
+                            <input type="text" class="form-control" placeholder="E.g., Fever">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea class="form-control" rows="3" placeholder="Enter full address"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline btn-cancel">Cancel</button>
+                <button class="btn btn-primary">Save Patient</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Doctor Modal -->
+    <div class="modal" id="doctor-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Doctor</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" placeholder="Enter doctor's name">
+                        </div>
+                        <div class="form-group">
+                            <label>Specialization</label>
+                            <select class="form-control">
+                                <option>Cardiology</option>
+                                <option>Neurology</option>
+                                <option>Orthopedics</option>
+                                <option>Pediatrics</option>
+                                <option>General Surgery</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="tel" class="form-control" placeholder="Enter phone number">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" class="form-control" placeholder="Enter email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Schedule/Availability</label>
+                        <input type="text" class="form-control" placeholder="E.g., Mon-Fri, 9AM-5PM">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline btn-cancel">Cancel</button>
+                <button class="btn btn-primary">Save Doctor</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
